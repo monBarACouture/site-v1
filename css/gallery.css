@@ -1,0 +1,54 @@
+.gallery {
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+.gallery .thumbnails {
+	position: relative;
+	overflow: hidden;
+}
+.gallery .thumbnails > a {
+	display: block;
+	margin: 0 2px;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	text-decoration: none;
+	border: none;
+}
+.gallery > .thumbnails > a > img {
+	border: none;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+.gallery > .thumbnails-controls {
+	margin: 0 auto;
+	margin-top: 8px;
+	padding: 0;
+	position: relative;
+	text-align: center;
+	width: 64px;
+	height: 24px;
+}
+.gallery > .thumbnails-controls > .prev,
+.gallery > .thumbnails-controls > .next {
+	display: inline-block;
+	width: 15px;
+	height: 24px;
+	text-decoration: none;
+	margin: 0 8px;
+	padding: 0;
+}
+.gallery > .thumbnails-controls > .prev {
+	background-image: url('img/direction-prev-24x24.png');
+}
+.gallery > .thumbnails-controls > .next {
+	background-image: url('img/direction-next-24x24.png');
+}
+.gallery > .thumbnails-progress {
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	left:0;
+}

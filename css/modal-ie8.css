@@ -1,0 +1,27 @@
+.modal {
+	background: url('img/ie8-modal-background.png') repeat;
+}
+.modal-content-wrapper .modal-button-hide:hover {
+	color: #058;
+}
+.modal > figure {
+	background-color: #eee;
+	border: 1px solid #999;
+	border-radius: 4px;
+	box-shadow: 0px 8px 8px rgba(0,0,0,0.25);
+	overflow: hidden;
+	padding: 4px;
+}
+.modal > figure > legend {
+	display: none;
+}
+.modal > form {
+	position: relative;
+	background-color: #eee;
+	border: 1px solid #999;
+	border-radius: 4px;
+	box-shadow: 0px 8px 8px rgba(0,0,0,0.25);
+	overflow: auto;
+	padding: 12px 4px 4px 4px;
+	width: 256px;
+}
