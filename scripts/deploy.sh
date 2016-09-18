@@ -23,7 +23,7 @@ fi
 # deploy sources on remote server
 
 export SSHPASS=$DEPLOY_PASSWORD
-export SSH_OPTIONS=-o stricthostkeychecking=no
+export SSH_OPTIONS="-o stricthostkeychecking=no"
 
 tar czf package.tgz sources
 sshpass -e scp $SSH_OPTIONS package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
