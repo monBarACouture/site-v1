@@ -31,4 +31,4 @@ SSH="sshpass -e ssh $SSH_OPTIONS"
 tar czf package.tgz sources
 $SCP package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
 $SCP scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
-$SSH "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT"
+$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT"
