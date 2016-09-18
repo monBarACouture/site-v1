@@ -11,7 +11,7 @@ set -u
 # return code of the whole pipeline
 set -o pipefail
 
-if [ "$TRAVIS_BRANCH" = master];
+if [ "$TRAVIS_BRANCH" = master ];
 then
     # inject 'production' environment variables
     . "$PWD/scripts/production.env"
