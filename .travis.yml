@@ -1,6 +1,6 @@
 install: true
 script: true
 deploy:
-    script: scripts/deploy.sh
-    all_branches: true
-    condition: ($TRAVIS_BRANCH = master) -o ($TRAVIS_BRANCH = develop)
+  script: scripts/deploy.sh
+  all_branches: true
+  condition: ($TRAVIS_BRANCH = master) -o ($TRAVIS_BRANCH = develop)
