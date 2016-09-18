@@ -20,4 +20,10 @@ else
     . "$PWD/scripts/development.env"
 fi
 
-# TODO deploy code to remote server
+# deploy sources on remote server
+
+export SSHPASS=$DEPLOY_PASSWORD
+
+tar czf package.tgz sources
+sshpass -e scp package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
+sshpass -e scp scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
