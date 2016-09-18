@@ -25,6 +25,10 @@ fi
 export SSHPASS=$DEPLOY_PASSWORD
 export SSH_OPTIONS="-o stricthostkeychecking=no"
 
+SCP="sshpass -e scp $SSH_OPTIONS"
+SSH="sshpass -e ssh $SSH_OPTIONS"
+
 tar czf package.tgz sources
-sshpass -e scp $SSH_OPTIONS package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
-sshpass -e scp $SSH_OPTIONS scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
+$SCP package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
+$SCP scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
+$SSH "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT"
