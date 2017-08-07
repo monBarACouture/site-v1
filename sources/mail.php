@@ -1,9 +1,13 @@
 <?php
+define('MAIL_CONFIG', 'config/mail.php');
 define('MAIL_PATTERN', '/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i');
-// define('MAIL_RECIPIENT', 'contact@catherine-kong.com');
-// define('MAIL_RECIPIENT', 'contact@nealrame.com');
-define('MAIL_RECIPIENT', 'contact@monbaracouture.com');
-define('MAIL_ERROR_RECIPIENT', 'contact@nealrame.com');
+
+if (file_exists(MAIL_CONFIG)) {
+	include(MAIL_CONFIG);
+}
+
+defined(MAIL_RECIPIENT) or define('MAIL_RECIPIENT', 'julien@graziano.fr');
+defined(MAIL_ERROR_RECIPIENT) or define('MAIL_ERROR_RECIPIENT', 'julien@graziano.fr');
 
 function check_parameters() {
 	$addr = $_POST['from'];
