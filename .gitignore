@@ -1,3 +1,4 @@
 *.DS_Store
 mailjet-auth.php
+data.tgz
 .env
