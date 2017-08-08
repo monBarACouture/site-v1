@@ -27,17 +27,16 @@ export SSHPASS=$DEPLOY_PASSWORD
 export SSH_OPTIONS="-o stricthostkeychecking=no"
 
 DEPLOY_DIR="$DEPLOY_BASE_DIR/$DEPLOY_ENV"
-DEPLOY_ENV_FILE="scripts/$DEPLOY_ENV.env"
+DEPLOY_DATA_FILE="data.tgz"
 
 tar cvz \
-		-f package.tgz \
-		-s ":$DEPLOY_ENV_FILE:env:" \
+		-f "$DEPLOY_DATA_FILE" \
 		-s ":^:$TRAVIS_COMMIT/:" \
 		--exclude ".git" \
-	docker sources $DEPLOY_ENV_FILE
+	docker sources
 
 SCP="sshpass -e scp $SSH_OPTIONS"
 SSH="sshpass -e ssh $SSH_OPTIONS"
 
-$SCP scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
-$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/deploy.sh" "$TRAVIS_COMMIT" "$DEPLOY_ENV"
+$SCP scripts/remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
+$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT" "$DEPLOY_ENV"

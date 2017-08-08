@@ -3,7 +3,8 @@
 DEPLOY_COMMIT="$1"
 DEPLOY_ENV="$2"
 
-DEPLOY_CONTAINER_NAME="mbac-v1"
+DEPLOY_DATA_FILE="data.tgz"
+DEPLOY_CONTAINER_NAME="mbac-v1-$DEPLOY_ENV"
 DEPLOY_DATE=$(date +"%m.%d.%y-%H:%M:%S")
 DEPLOY_DIR=$(dirname "$0")
 DEPLOY_LOG_FILE=$(dirname "$DEPLOY_DIR")/deploy.log
@@ -27,11 +28,9 @@ mkdir -p "$DEPLOY_DIR/config"
 
 rm -fr "$DEPLOY_COMMIT"
 
-tar xvzf package.tgz
+tar xvzf "$DEPLOY_DATA_FILE"
 
 pushd "$DEPLOY_COMMIT"
-
-DEPLOY_ENV_FILE="$PWD/env"
 
 # Check for depences.
 for CONTAINER in nginx-proxy gmail-exim4;
@@ -61,7 +60,7 @@ popd # => $DEPLOY_DIR
 # Run the app container.
 docker run \
 	-d \
-	--env-file "$DEPLOY_ENV_FILE" \
+	--env-file "env" \
 	--link "gmail-exim4:smtp" \
 	--name "$DEPLOY_CONTAINER_NAME" \
 	--volume "$PWD/config:/var/www/html/config" \
@@ -69,7 +68,7 @@ docker run \
 	"$DEPLOY_IMAGE_NAME"
 
 # Do the cleaning.
-rm -fr remote-deploy.sh package.tgz "$DEPLOY_COMMIT"
+#rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"
 
 cat >> "$DEPLOY_LOG_FILE" <<EOF
 ${DEPLOY_ENV} ${DEPLOY_DATE} ${DEPLOY_COMMIT}
