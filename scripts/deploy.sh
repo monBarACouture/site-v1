@@ -20,9 +20,7 @@ else
 	export DEPLOY_ENV=staging
 fi
 
-# deploy sources on remote server
-
-
+# deploy app on remote server
 export SSHPASS=$DEPLOY_PASSWORD
 export SSH_OPTIONS="-o stricthostkeychecking=no"
 
