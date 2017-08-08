@@ -68,7 +68,7 @@ docker run \
 	"$DEPLOY_IMAGE_NAME"
 
 # Do the cleaning.
-#rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"
+rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"
 
 cat >> "$DEPLOY_LOG_FILE" <<EOF
 ${DEPLOY_ENV} ${DEPLOY_DATE} ${DEPLOY_COMMIT}
