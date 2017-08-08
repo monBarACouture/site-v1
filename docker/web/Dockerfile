@@ -8,9 +8,11 @@ VOLUME /var/log/apache2
 RUN apt-get update && apt-get install -q -y ssmtp mailutils && rm -rf /var/lib/apt/lists/*
 
 # set up sendmail config, see http://linux.die.net/man/5/ssmtp.conf for options
-RUN echo "hostname=localhost.localdomain" > /etc/ssmtp/ssmtp.conf
 RUN echo "root=julien@graziano.fr" >> /etc/ssmtp/ssmtp.conf
+RUN echo "hostname=localhost.localdomain" > /etc/ssmtp/ssmtp.conf
 RUN echo "mailhub=smtp" >> /etc/ssmtp/ssmtp.conf
+RUN echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
+
 # The above 'maildev' is the name you used for the link command
 # in your docker-compose file or docker link command.
 # Docker automatically adds that name in the hosts file

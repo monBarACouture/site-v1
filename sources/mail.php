@@ -27,8 +27,8 @@ if (isset($_POST['from'])
 		$message = $_POST['message'];
 		$headers =
 			"From: $name <$from>"
-			. "\r\n" . "Reply-To: $from"
-			. "\r\n" . "X-Mailer: PHP/" . phpversion();
+			. "\n" . "Reply-To: $from"
+			. "\n" . "X-Mailer: PHP/" . phpversion();
 		mail(MAIL_RECIPIENT, $subject, $message, $headers);
 	} else {
 		mail(MAIL_ERROR_RECIPIENT, 'MBaC contact error', var_export($_POST, true));
