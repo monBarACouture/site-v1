@@ -2,6 +2,7 @@ FROM php:7.0-apache
 COPY sources/ /var/www/html/
 RUN mkdir /var/www/html/config
 VOLUME /var/www/html/config
+VOLUME /var/log/apache2
 
 # Installs sendmail
 RUN apt-get update && apt-get install -q -y ssmtp mailutils && rm -rf /var/lib/apt/lists/*

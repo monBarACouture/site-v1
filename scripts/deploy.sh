@@ -13,22 +13,27 @@ set -o pipefail
 
 if [ "$TRAVIS_BRANCH" = master ];
 then
-    # inject 'production' environment variables
-	export ENV=production
-    . "$PWD/scripts/production.env"
+	# inject 'production' environment variables
+	export DEPLOY_ENV=production
 else
-    # inject 'development' environment variables
-	export ENV=staging
-    . "$PWD/scripts/staging.env"
+	# inject 'staging' environment variables
+	export DEPLOY_ENV=staging
 fi
 
 # deploy sources on remote server
 
+export DEPLOY_DIR="$DEPLOY_BASE_DIR/$DEPLOY_ENV"
 export SSHPASS=$DEPLOY_PASSWORD
 export SSH_OPTIONS="-o stricthostkeychecking=no"
+
+tar cvz \
+		-f package.tgz \
+		-s ":^:$TRAVIS_COMMIT/:" \
+		--exclude ".git" \
+	docker sources scripts
 
 SCP="sshpass -e scp $SSH_OPTIONS"
 SSH="sshpass -e ssh $SSH_OPTIONS"
 
-$SCP scripts/remote-deploy.sh "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
-$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT" "$ENV"
+$SCP scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
+$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT" "$DEPLOY_ENV"
