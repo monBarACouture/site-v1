@@ -3,10 +3,11 @@
 DEPLOY_COMMIT="$1"
 DEPLOY_ENV="$2"
 
-DEPLOY_DATA_FILE="data.tgz"
+
 DEPLOY_CONTAINER_NAME="mbac-v1-$DEPLOY_ENV"
 DEPLOY_DATE=$(date +"%m.%d.%y-%H:%M:%S")
 DEPLOY_DIR=$(dirname "$0")
+DEPLOY_DATA_FILE="$DEPLOY_DIR/data.tgz"
 DEPLOY_LOG_FILE=$(dirname "$DEPLOY_DIR")/deploy.log
 DEPLOY_IMAGE_NAME="mbac-v1:$DEPLOY_COMMIT"
 
@@ -22,15 +23,14 @@ check_running_container() {
 
 pushd "$DEPLOY_DIR"
 
-mkdir -p "$DEPLOY_DIR"
-mkdir -p "$DEPLOY_DIR/logs"
-mkdir -p "$DEPLOY_DIR/config"
-
 rm -fr "$DEPLOY_COMMIT"
-
-tar xvzf "$DEPLOY_DATA_FILE"
+mkdir -p "$DEPLOY_COMMIT"
+mkdir -p "logs"
+mkdir -p "config"
 
 pushd "$DEPLOY_COMMIT"
+
+tar xvzf "$DEPLOY_DATA_FILE"
 
 # Check for depences.
 for CONTAINER in nginx-proxy gmail-exim4;

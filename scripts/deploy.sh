@@ -29,7 +29,6 @@ DEPLOY_DATA_FILE="data.tgz"
 
 tar cvz \
 		-f "$DEPLOY_DATA_FILE" \
-		-s ":^:$TRAVIS_COMMIT/:" \
 		--exclude ".git" \
 	docker sources
 
