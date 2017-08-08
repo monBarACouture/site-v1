@@ -1,12 +1,13 @@
 #! /bin/bash
 
-COMMIT="$1"
+DEPLOY_COMMIT="$1"
 DEPLOY_ENV="$2"
-DEPLOY_DIR=$(dirname "$0")
 
-CONTAINER_NAME="mbac-v1"
-DATE=$(date +"%m.%d.%y-%H:%M:%S")
-IMAGE_NAME="mbac-v1:$COMMIT"
+DEPLOY_CONTAINER_NAME="mbac-v1"
+DEPLOY_DATE=$(date +"%m.%d.%y-%H:%M:%S")
+DEPLOY_DIR=$(dirname "$0")
+DEPLOY_LOG_FILE=$(dirname "$DEPLOY_DIR")/deploy.log
+DEPLOY_IMAGE_NAME="mbac-v1:$DEPLOY_COMMIT"
 
 check_container() {
 	CONTAINER="$1"
@@ -24,13 +25,13 @@ mkdir -p "$DEPLOY_DIR"
 mkdir -p "$DEPLOY_DIR/logs"
 mkdir -p "$DEPLOY_DIR/config"
 
-rm -fr "$COMMIT"
+rm -fr "$DEPLOY_COMMIT"
 
 tar xvzf package.tgz
 
-pushd "$COMMIT"
+pushd "$DEPLOY_COMMIT"
 
-ENV_FILE="$PWD/scripts/$DEPLOY_ENV.env"
+DEPLOY_ENV_FILE="$PWD/env"
 
 # Check for depences.
 for CONTAINER in nginx-proxy gmail-exim4;
@@ -45,29 +46,33 @@ do
 done
 
 # Destroy current app container.
-if check_container "$CONTAINER_NAME";
+if check_container "$DEPLOY_CONTAINER_NAME";
 then
-	echo "Destroy $CONTAINER_NAME container"
-	docker stop "$CONTAINER_NAME"
-	docker rm "$CONTAINER_NAME"
+	echo "Destroy $DEPLOY_CONTAINER_NAME container"
+	docker stop "$DEPLOY_CONTAINER_NAME"
+	docker rm "$DEPLOY_CONTAINER_NAME"
 fi
 
 # Build the next app container.
-docker build -t "$IMAGE_NAME" -f docker/web/Dockerfile .
+docker build -t "$DEPLOY_IMAGE_NAME" -f docker/web/Dockerfile .
 
 popd # => $DEPLOY_DIR
 
 # Run the app container.
 docker run \
 	-d \
-	--env-file "$ENV_FILE" \
+	--env-file "$DEPLOY_ENV_FILE" \
 	--link "gmail-exim4:smtp" \
-	--name "$CONTAINER_NAME" \
+	--name "$DEPLOY_CONTAINER_NAME" \
 	--volume "$PWD/config:/var/www/html/config" \
 	--volume "$PWD/logs:/var/log/apache2" \
-	"$IMAGE_NAME"
+	"$DEPLOY_IMAGE_NAME"
 
 # Do the cleaning.
-rm -fr remote-deploy.sh package.tgz "$COMMIT"
+rm -fr remote-deploy.sh package.tgz "$DEPLOY_COMMIT"
+
+cat >> "$DEPLOY_LOG_FILE" <<EOF
+${DEPLOY_ENV} ${DEPLOY_DATE} ${DEPLOY_COMMIT}
+EOF
 
 popd # => /

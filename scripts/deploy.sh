@@ -22,18 +22,22 @@ fi
 
 # deploy sources on remote server
 
-export DEPLOY_DIR="$DEPLOY_BASE_DIR/$DEPLOY_ENV"
+
 export SSHPASS=$DEPLOY_PASSWORD
 export SSH_OPTIONS="-o stricthostkeychecking=no"
 
+DEPLOY_DIR="$DEPLOY_BASE_DIR/$DEPLOY_ENV"
+DEPLOY_ENV_FILE="scripts/$DEPLOY_ENV.env"
+
 tar cvz \
 		-f package.tgz \
+		-s ":$DEPLOY_ENV_FILE:env:" \
 		-s ":^:$TRAVIS_COMMIT/:" \
 		--exclude ".git" \
-	docker sources scripts
+	docker sources $DEPLOY_ENV_FILE
 
 SCP="sshpass -e scp $SSH_OPTIONS"
 SSH="sshpass -e ssh $SSH_OPTIONS"
 
 $SCP scripts/remote-deploy.sh package.tgz "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_DIR"
-$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/remote-deploy.sh" "$TRAVIS_COMMIT" "$DEPLOY_ENV"
+$SSH "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_DIR/deploy.sh" "$TRAVIS_COMMIT" "$DEPLOY_ENV"
