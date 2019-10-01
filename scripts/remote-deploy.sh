@@ -33,7 +33,7 @@ pushd "$DEPLOY_COMMIT"
 tar xvzf "$DEPLOY_DATA_FILE"
 
 # Check for depences.
-for CONTAINER in nginx-proxy gmail-exim4;
+for CONTAINER in nginx-proxy;
 do
 	if check_running_container "$CONTAINER";
 	then
@@ -53,7 +53,7 @@ then
 fi
 
 # Build the next app container.
-docker build -t "$DEPLOY_IMAGE_NAME" -f docker/web/Dockerfile .
+# docker build -t "$DEPLOY_IMAGE_NAME" -f docker/web/Dockerfile .
 
 popd # => $DEPLOY_DIR
 
@@ -61,11 +61,19 @@ popd # => $DEPLOY_DIR
 docker run \
 	-d \
 	--env-file "env" \
-	--link "gmail-exim4:smtp" \
-	--name "$DEPLOY_CONTAINER_NAME" \
-	--volume "$PWD/config:/var/www/html/config" \
-	--volume "$PWD/logs:/var/log/apache2" \
-	"$DEPLOY_IMAGE_NAME"
+	--name "$DEPLOY_CONTAINER_NAME"  \
+	--volume $PWD/sources:/usr/share/nginx/html:ro \
+	-p 8080:80 \
+	nginx
+
+# docker run \
+# 	-d \
+# 	--env-file "env" \
+# 	--name "$DEPLOY_CONTAINER_NAME" \
+# 	--volume
+# 	--volume "$PWD/config:/var/www/html/config" \
+# 	--volume "$PWD/logs:/var/log/apache2" \
+# 	"$DEPLOY_IMAGE_NAME"
 
 # Do the cleaning.
 rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"

@@ -30,7 +30,7 @@ DEPLOY_DATA_FILE="data.tgz"
 tar cvz \
 		-f "$DEPLOY_DATA_FILE" \
 		--exclude ".git" \
-	docker sources
+	sources
 
 SCP="sshpass -e scp $SSH_OPTIONS"
 SSH="sshpass -e ssh $SSH_OPTIONS"

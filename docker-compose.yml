@@ -1,17 +1,8 @@
 version: '3'
 services:
-  smtp:
-    image: tianon/exim4
-    environment:
-      - GMAIL_USER
-      - GMAIL_PASSWORD
   web:
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
-    depends_on:
-      - smtp
-    links:
-      - smtp
     ports:
       - "8080:80"
