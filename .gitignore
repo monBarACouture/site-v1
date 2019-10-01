@@ -2,3 +2,5 @@
 mailjet-auth.php
 data.tgz
 .env
+/*.csr
+/*.key
