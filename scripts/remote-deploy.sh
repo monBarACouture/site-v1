@@ -9,7 +9,7 @@ DEPLOY_DATE=$(date +"%m.%d.%y-%H:%M:%S")
 DEPLOY_DIR=$(dirname "$0")
 DEPLOY_DATA_FILE="$DEPLOY_DIR/data.tgz"
 DEPLOY_LOG_FILE=$(dirname "$DEPLOY_DIR")/deploy.log
-DEPLOY_IMAGE_NAME="mbac-v1:$DEPLOY_COMMIT"
+# DEPLOY_IMAGE_NAME="mbac-v1:$DEPLOY_COMMIT"
 
 check_container() {
 	CONTAINER="$1"
@@ -76,7 +76,7 @@ docker run \
 # 	"$DEPLOY_IMAGE_NAME"
 
 # Do the cleaning.
-rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"
+# rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"
 
 cat >> "$DEPLOY_LOG_FILE" <<EOF
 ${DEPLOY_ENV} ${DEPLOY_DATE} ${DEPLOY_COMMIT}
