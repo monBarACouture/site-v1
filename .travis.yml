@@ -8,4 +8,5 @@ deploy:
     all_branches: true
     condition: $TRAVIS_PULL_REQUEST == "false" && ($TRAVIS_BRANCH = master || $TRAVIS_BRANCH = develop)
 before_deploy:
+  - sudo apt-get update
   - sudo apt-get install -y sshpass
