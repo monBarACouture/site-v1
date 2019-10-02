@@ -9,7 +9,6 @@ DEPLOY_DATE=$(date +"%m.%d.%y-%H:%M:%S")
 DEPLOY_DIR=$(dirname "$0")
 DEPLOY_DATA_FILE="$DEPLOY_DIR/data.tgz"
 DEPLOY_LOG_FILE=$(dirname "$DEPLOY_DIR")/deploy.log
-# DEPLOY_IMAGE_NAME="mbac-v1:$DEPLOY_COMMIT"
 
 check_container() {
 	CONTAINER="$1"
@@ -25,10 +24,12 @@ pushd "$DEPLOY_DIR"
 
 rm -fr "$DEPLOY_COMMIT"
 mkdir -p "$DEPLOY_COMMIT"
-mkdir -p "logs"
-mkdir -p "config"
 
-pushd "$DEPLOY_COMMIT"
+ln -s "$DEPLOY_COMMIT" current
+
+mkdir -p "logs"
+
+pushd "current"
 
 tar xvzf "$DEPLOY_DATA_FILE"
 
@@ -52,31 +53,20 @@ then
 	docker rm "$DEPLOY_CONTAINER_NAME"
 fi
 
-# Build the next app container.
-# docker build -t "$DEPLOY_IMAGE_NAME" -f docker/web/Dockerfile .
-
-popd # => $DEPLOY_DIR
-
 # Run the app container.
 docker run \
 	-d \
 	--env-file "env" \
 	--name "$DEPLOY_CONTAINER_NAME"  \
 	--volume $PWD/sources:/usr/share/nginx/html:ro \
+	--volume $PWD/logs:/var/log/nginx \
 	-p 8080:80 \
 	nginx
 
-# docker run \
-# 	-d \
-# 	--env-file "env" \
-# 	--name "$DEPLOY_CONTAINER_NAME" \
-# 	--volume
-# 	--volume "$PWD/config:/var/www/html/config" \
-# 	--volume "$PWD/logs:/var/log/apache2" \
-# 	"$DEPLOY_IMAGE_NAME"
+popd # => $DEPLOY_DIR
 
 # Do the cleaning.
-# rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE" "$DEPLOY_COMMIT"
+rm -fr remote-deploy.sh "$DEPLOY_DATA_FILE"
 
 cat >> "$DEPLOY_LOG_FILE" <<EOF
 ${DEPLOY_ENV} ${DEPLOY_DATE} ${DEPLOY_COMMIT}
