@@ -25,6 +25,11 @@ pushd "$DEPLOY_DIR"
 rm -fr "$DEPLOY_COMMIT"
 mkdir -p "$DEPLOY_COMMIT"
 
+if [ -L current ];
+then
+	unlink current
+fi
+
 ln -s "$DEPLOY_COMMIT" current
 
 pushd "current"
