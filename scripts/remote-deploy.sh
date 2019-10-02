@@ -27,9 +27,9 @@ mkdir -p "$DEPLOY_COMMIT"
 
 ln -s "$DEPLOY_COMMIT" current
 
-mkdir -p "logs"
-
 pushd "current"
+
+mkdir -p "logs"
 
 tar xvzf "$DEPLOY_DATA_FILE"
 
@@ -56,7 +56,7 @@ fi
 # Run the app container.
 docker run \
 	-d \
-	--env-file "env" \
+	--env-file "$DEPLOY_DIR/env" \
 	--name "$DEPLOY_CONTAINER_NAME"  \
 	--volume $PWD/sources:/usr/share/nginx/html:ro \
 	--volume $PWD/logs:/var/log/nginx \
