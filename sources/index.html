@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
 	<link rel='stylesheet' href='css/style.css' type='text/css'/>
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" type="text/css" media="all" href="css/style-ie8.css"/>
@@ -43,7 +44,7 @@
 		<header><a id="logo" href="index.html"></a></header>
 		<aside id="menu">
 			<ul id="navbar">
-				<li id="current"><a class="home" href="index.html"></a></li>
+				<li id="current"><a href="index.html"><i class="fas fa-home"></i></a></li>
 				<li>
 					<a href="mbac.html">mBàC ...</a>
 					<ul class="dropdown">
@@ -58,8 +59,8 @@
 					<a href="services.html">Services</a>
 					<ul class="dropdown">
 						<li><a href="services.html#libre_service">Libre service</a></li>
-						<li><a href="services.html#initiation">Atelier d'initiation à la couture</a></li>
 						<li><a href="services.html#prise_en_mains_machine">Prise en mains de votre machine à coudre</a></li>
+						<li><a href="services.html#analyse_d_un_patron_d_habillement">Analyse d'un patron d'habillement</a></li>
 						<li><a href="services.html#formation">Formation</a></li>
 					</ul>
 				</li>
@@ -67,7 +68,7 @@
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
 			<footer>
-				<p>© mon Bar à Couture<br><a href="mentions-legales.html">Mentions légales</a>, <a href="partenaires.html">Partenaires</a></p>
+				<p>© mon Bar à Couture<br><a href="mentions-legales.html">Mentions légales</a></p>
 				<ul id="socialbar">
 					<li><a class="social fbook" href="https://www.facebook.com/MonBarACouture" target="_blank"></a></li>
 				</ul>
@@ -111,7 +112,7 @@
 						<center><h1>Contact</h1></center>
 						<table>
 							<tr>
-								<th width="64px" valign="top"><img src="css/img/home-icon-24x24-black.png"</th>
+								<th width="64px" valign="top"><i class="fas fa-home"></i></th>
 								<td>
 									<address>
 										mon Bar à Couture<br>
@@ -121,44 +122,45 @@
 								</td>
 							</tr>
 							<tr>
-								<th width="64px" valign="top"><img src="css/img/cell-icon-24x24-black.png"></th>
+								<th width="64px" valign="top"><i class="fas fa-phone"></i></th>
 								<td>03.20.39.72.44</td>
 							</tr>
 							<tr>
-								<th width="64px" valign="top"><img src="css/img/letter-icon-24x24-black.png"></th>
+								<th width="64px" valign="top"><i class="fas fa-envelope"></i></th>
 								<td>contact@monbaracouture.com</td>
 							</tr>
 						</table>
 					</div>
 				</div>
+
 				<div class="span4">
 					<div class="box">
-						<h1 class="centered">Newsletter</h1>
-						<p class="centered">Abonnez-vous à la newsletter et recevez toute l'actualité et les bons plans mon&nbsp;Bar&nbsp;à&nbsp;Couture.</p>
-						<p class="centered"><a id="subscribe" class="modal-button-show" style="font-size: large; font-weight: bold;" href="#subscribe-newsletter">Je m'abonne !</a></p>
+						<h1 class="centered">Actualité</h1>
+						<p class="centered">Suivez notre actualité sur les réseaux sociaux.</p>
+						<div class="row-fluid">
+							<div class="span-fluid6">
+								<p class="centered" >
+									<a style="color:inherit" href="https://www.facebook.com/MonBarACouture"><i class="fab fa-facebook fa-4x"></i></a>
+								</p>
+							</div>
+							<div class="span-fluid6">
+								<p class="centered" >
+									<a style="color:inherit" href="https://www.instagram.com/monbaracouture"><i class="fab fa-instagram fa-4x"></i></a>
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<footer>
-			<p>© mon Bar à Couture<br><a href="mentions-legales.html">Mentions légales</a>, <a href="partenaires.html">Partenaires</a></p>
-			<ul id="socialbar">
-				<li><a class="social fbook" href="https://www.facebook.com/MonBarACouture" target="_blank"></a></li>
-			</ul>
+			<p>© mon Bar à Couture<br><a href="mentions-legales.html">Mentions légales</a></p>
 		</footer>
-	</div>
-
-	<div id='subscribe-newsletter' class='modal'>
-		<form class="mail-form">
-			<input class="mail-field" type="text" value="Votre adresse mail..." onkeypress="return noenter()" onfocus="this.value='';"/>
-			<a class="mail-button">OK</a>
-		</form>
 	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$(".slideshow#slideshow1").start_slideshow(890, 320);
-			$('.mail-button').click(function() { do_add_contact($(this)); });
 		});
 	</script>
 </body>

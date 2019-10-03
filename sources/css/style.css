@@ -213,7 +213,6 @@ a:hover { color: #058; }
 	background-color: #bbb;
 	border-radius: 4px;
 }
-
 @media (min-width: 1024px) {
 	html {
 		font-family: large;
@@ -425,38 +424,6 @@ a:hover { color: #058; }
 		color: #444;
 		text-decoration: none;
 	}
-	#socialbar {
-		color: white;
-		list-style-type: none;
-		padding: 0;
-		overflow: auto;
-		position: absolute;
-		top: 16px;
-		right: 4px;
-	}
-	#socialbar > li {
-		float: right;
-		margin: 0;
-		width: 32px;
-		height: 32px;
-		padding: 4px;
-	}
-	#socialbar > li > a.social {
-		width: 32px;
-		height: 32px;
-		padding: 0;
-		margin: 0;
-		display: block;
-	}
-	#socialbar > li > a.fbook       { background-image: url('img/facebook-icon-32x32.png'); }
-	#socialbar > li > a.fbook:hover { background-image: url('img/facebook-icon-32x32-hover.png'); }
-	#socialbar > li > a.insta       { background-image: url('img/instagram-icon-32x32.png'); }
-	#socialbar > li > a.insta:hover { background-image: url('img/instagram-icon-32x32-hover.png'); }
-	#socialbar > li > a.twter       { background-image: url('img/twitter-icon-32x32.png'); }
-	#socialbar > li > a.twter:hover { background-image: url('img/twitter-icon-32x32-hover.png'); }
-	#socialbar > li > a.rss         { background-image: url('img/rss-icon-32x32.png'); }
-	#socialbar > li > a.rss:hover   { background-image: url('img/rss-icon-32x32-hover.png'); }
-
 	.calendar {
 		border-spacing: 7px 4px;
 	}
@@ -680,39 +647,6 @@ a:hover { color: #058; }
 		font-weight: normal;
 		text-decoration: none;
 	}
-	#socialbar {
-		color: white;
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-		overflow: auto;
-		position: absolute;
-		top: 16px;
-		right: 4px;
-	}
-	#socialbar > li {
-		float: right;
-		margin: 0;
-		width: 32px;
-		height: 32px;
-		padding: 4px 0;
-	}
-	#socialbar > li > a.social {
-		width: 32px;
-		height: 32px;
-		padding: 0;
-		margin: 0;
-		display: block;
-	}
-	#socialbar > li > a.fbook       { background-image: url('img/facebook-icon-32x32.png'); }
-	#socialbar > li > a.fbook:hover { background-image: url('img/facebook-icon-32x32-hover.png'); }
-	#socialbar > li > a.insta       { background-image: url('img/instagram-icon-32x32.png'); }
-	#socialbar > li > a.insta:hover { background-image: url('img/instagram-icon-32x32-hover.png'); }
-	#socialbar > li > a.twter       { background-image: url('img/twitter-icon-32x32.png'); }
-	#socialbar > li > a.twter:hover { background-image: url('img/twitter-icon-32x32-hover.png'); }
-	#socialbar > li > a.rss         { background-image: url('img/rss-icon-32x32.png'); }
-	#socialbar > li > a.rss:hover   { background-image: url('img/rss-icon-32x32-hover.png'); }
-
 	.calendar {
 		border-spacing: 7px 4px;
 	}
@@ -854,9 +788,6 @@ a:hover { color: #058; }
 	#navbar .dropdown > li > a {
 		color: #444;
 		text-decoration: none;
-	}
-	#socialbar {
-		display: none;
 	}
 	.price-list .price-list{
 		margin: 0;
