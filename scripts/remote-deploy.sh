@@ -65,7 +65,6 @@ docker run \
 	--name "$DEPLOY_CONTAINER_NAME"  \
 	--volume $PWD/sources:/usr/share/nginx/html:ro \
 	--volume $PWD/logs:/var/log/nginx \
-	-p 8080:80 \
 	nginx
 
 popd # => $DEPLOY_DIR
