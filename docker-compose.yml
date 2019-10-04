@@ -1,17 +1,14 @@
-version: '3'
+version: '3.2'
 services:
-  smtp:
-    image: tianon/exim4
-    environment:
-      - GMAIL_USER
-      - GMAIL_PASSWORD
   web:
-    build:
-      context: .
-      dockerfile: ./docker/web/Dockerfile
-    depends_on:
-      - smtp
-    links:
-      - smtp
+    image: nginx
+    volumes:
+      - type: bind
+        source: ./sources
+        target: /usr/share/nginx/html
+        read_only: true
+      - type: bind
+        source: ./logs
+        target: /var/log/nginx
     ports:
       - "8080:80"
